@@ -33,6 +33,19 @@ public class IndexEditorService implements IndexEditorInterface {
     ActionManager manager;
     List<PersonEntity> index;
 
+    class FolderFilter extends javax.swing.filechooser.FileFilter {
+
+        @Override
+        public boolean accept(File file) {
+            return file.isDirectory();
+        }
+
+        @Override
+        public String getDescription() {
+            return "Select root directory";
+        }
+    }
+
     public IndexEditorService(ActionManager manager) {
         this.manager = manager;
         index = new ArrayList<>();
@@ -162,18 +175,6 @@ public class IndexEditorService implements IndexEditorInterface {
 
     @Override
     public void changePacientsRootDirectory() {
-        class FolderFilter extends javax.swing.filechooser.FileFilter {
-
-            @Override
-            public boolean accept(File file) {
-                return file.isDirectory();
-            }
-
-            @Override
-            public String getDescription() {
-                return "Select root directory";
-            }
-        }
         JFileChooser fileChooser = new JFileChooser(".");
         fileChooser.setFileFilter(new FolderFilter());
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -222,6 +223,18 @@ public class IndexEditorService implements IndexEditorInterface {
                 Logger.getLogger(IndexEditorService.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+
+    @Override
+    public void minimizeImages() {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new FolderFilter());
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setMultiSelectionEnabled(true);
+        int choice = chooser.showOpenDialog(form);
+        if (chooser.getSelectedFiles() != null && choice == JFileChooser.APPROVE_OPTION) {
+            manager.minimizeImages(chooser.getSelectedFiles());
         }
     }
 

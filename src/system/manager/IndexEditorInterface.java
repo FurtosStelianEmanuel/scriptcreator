@@ -30,4 +30,6 @@ public interface IndexEditorInterface {
     void exportJson();
     
     void changePacientsRootDirectory();
+    
+    void minimizeImages();
 }

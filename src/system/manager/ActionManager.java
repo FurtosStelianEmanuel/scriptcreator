@@ -5,8 +5,10 @@
  */
 package system.manager;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.json.simple.JSONArray;
@@ -59,6 +61,15 @@ public class ActionManager implements ActionManagerInterface {
     @Override
     public void exportJsonArray(JSONArray array, Path path, String fileName) throws IOException, ClassNotFoundException {
         resource.exportJsonArray(array, path, fileName);
+    }
+
+    @Override
+    public void minimizeImages(File[] selectedDirectories) {
+        List<File> images = new ArrayList<>();
+        for (File imageDirectory : selectedDirectories) {
+            images.addAll(Arrays.asList(imageDirectory.listFiles()));           
+        }
+        resource.minimizeImages(images, 0.7, 0.5);
     }
 
 }

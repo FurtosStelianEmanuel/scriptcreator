@@ -5,6 +5,7 @@
  */
 package system.manager;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -30,4 +31,6 @@ public interface ActionManagerInterface {
     List<PersonEntity> getIndex(Path path, String fileName) throws IOException, ClassNotFoundException, FileNotFoundException;
 
     void exportJsonArray(JSONArray array, Path path, String fileName) throws IOException, ClassNotFoundException;
+
+    void minimizeImages(File[] selectedDirectories);
 }
